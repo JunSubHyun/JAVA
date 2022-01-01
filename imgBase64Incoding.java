@@ -34,3 +34,34 @@
         
         return imageString;
     }
+
+/**
+     *이미지 Base64로 디코딩
+     */
+    public static BufferedImage decodeToImage(String imageString) {
+
+        BufferedImage image = null;
+        //BufferedImage 선언 -> 결과값
+        byte[] imageByte;
+        //byte 변수 선언
+        
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            //BASE64Decoder 선언
+            
+            imageByte = decoder.decodeBuffer(imageString);
+            //Base64로 인코딩된 이미지를 다시 디코딩
+            
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            //InputStream 에 ByteArrayInputStream을 넣어줌
+            
+            image = ImageIO.read(bis);
+            //ImageIO를 이용해 InputStream에 있는 이미지를 읽는다
+            
+            bis.close();
+            //InputStream 종료
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
